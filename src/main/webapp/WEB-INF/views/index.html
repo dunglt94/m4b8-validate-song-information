@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{/layout :: head}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>
+    <a th:href="@{/songs/create}">
+        Add new song
+    </a>
+</p>
+<div class="notify">
+    <div th:if="${message}" style="margin-bottom: 5px;">
+        <span th:text="${message}"></span>
+    </div>
+</div>
+<table id="list">
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Title</th>
+        <th>Singer</th>
+        <th>Genre</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="song, sState: ${songs}" th:class="${sState.odd}?'odd':'even'">
+        <td th:text="${sState.count}"></td>
+        <td th:text="${song.title}"></td>
+        <td th:text="${song.artist}"></td>
+        <td th:text="${song.genre}"></td>
+        <td>
+            <a th:href="@{/songs/{id}/update(id=${song.id})}">Edit</a>
+        </td>
+        <td>
+            <a th:href="@{/songs/{id}/delete(id=${song.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<footer th:replace="~{/layout :: footer}"></footer>
+</body>
+</html>
